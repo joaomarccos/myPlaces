@@ -42,7 +42,8 @@ public class MongoDBConnectionUtil {
         return this.db;
     }
 
-    public void close() {
+    public void closeConnection() {
+        this.db = null;
         this.mongoClient.close();
     }
 

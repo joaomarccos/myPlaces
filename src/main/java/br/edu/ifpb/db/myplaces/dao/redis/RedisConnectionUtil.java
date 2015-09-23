@@ -24,7 +24,7 @@ public class RedisConnectionUtil {
     }
 
     private void loadConfigFile() {
-            this.properties = new Properties();
+        this.properties = new Properties();
         try (InputStream in = Files.newInputStream(Paths.get(PATH))) {
             this.properties.load(in);
         } catch (IOException ex) {
@@ -48,6 +48,7 @@ public class RedisConnectionUtil {
     }
 
     public void closeConnection() {
+        this.connection = null;
         this.connection.close();
     }
 }
