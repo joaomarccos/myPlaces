@@ -11,6 +11,7 @@ public class User {
     private int age;
     private String bio;
     private Address address;
+    private String image;
 
     public User() {
     }
@@ -62,4 +63,11 @@ public class User {
         this.address = address;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }    
 }

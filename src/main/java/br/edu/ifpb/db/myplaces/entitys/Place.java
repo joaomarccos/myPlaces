@@ -4,8 +4,8 @@ package br.edu.ifpb.db.myplaces.entitys;
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-public class Place {
-    
+public class Place{
+       
     private int id;
     private String description;
     private double lat;
