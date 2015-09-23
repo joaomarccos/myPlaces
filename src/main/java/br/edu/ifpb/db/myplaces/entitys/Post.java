@@ -9,6 +9,7 @@ import java.util.List;
 import org.bson.BsonArray;
 import org.bson.BsonValue;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -16,7 +17,7 @@ import org.bson.Document;
  */
 public class Post {
 
-    private String id;
+    private ObjectId id;
     private String author;
     private Date date;
     private String text;
@@ -34,11 +35,11 @@ public class Post {
         this.text = text;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -96,7 +97,7 @@ public class Post {
 
     public static Post fromDocument(Document document) {
         Post post = new Post();
-        post.setId(document.getObjectId("_id").toString());
+        post.setId(document.getObjectId("_id"));
         post.setAuthor(document.getString("author"));
         post.setText(document.getString("text"));
         post.setDate(document.getDate("date"));
