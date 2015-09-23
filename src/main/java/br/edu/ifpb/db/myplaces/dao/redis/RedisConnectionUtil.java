@@ -16,7 +16,7 @@ import redis.clients.jedis.Jedis;
 public class RedisConnectionUtil {
 
     private Properties properties;
-    private static final String PATH = "src/main/resources/redisConfig.properties";
+    private static final String PATH = "src/main/resources/config.properties";
     private Jedis connection;
 
     public RedisConnectionUtil() {
@@ -24,7 +24,7 @@ public class RedisConnectionUtil {
     }
 
     private void loadConfigFile() {
-        this.properties = new Properties();
+            this.properties = new Properties();
         try (InputStream in = Files.newInputStream(Paths.get(PATH))) {
             this.properties.load(in);
         } catch (IOException ex) {
@@ -32,20 +32,22 @@ public class RedisConnectionUtil {
         }
     }
 
-    private String getServer() {
-        return this.properties.getProperty("server");
+    private String getHost() {
+        return this.properties.getProperty("redis.host");
     }
 
     private int getPort() {
-        return Integer.parseInt(this.properties.getProperty("port"));
+        return Integer.parseInt(this.properties.getProperty("redis.port"));
     }
-    
-    public Jedis getConnection(){
-        this.connection = new Jedis(getServer(), getPort());
+
+    public Jedis getConnection() {
+        if (this.connection == null) {
+            this.connection = new Jedis(getHost(), getPort());
+        }
         return connection;
     }
-    
-    public void closeConnection(){
+
+    public void closeConnection() {
         this.connection.close();
     }
 }
