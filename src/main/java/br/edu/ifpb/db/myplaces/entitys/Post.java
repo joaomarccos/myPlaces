@@ -20,6 +20,7 @@ public class Post {
     }
 
     public Post(String author, Date date, String text) {
+        this();
         this.author = author;
         this.date = date;
         this.text = text;

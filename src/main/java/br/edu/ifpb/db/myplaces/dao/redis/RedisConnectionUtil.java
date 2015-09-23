@@ -16,7 +16,7 @@ import redis.clients.jedis.Jedis;
 public class RedisConnectionUtil {
 
     private Properties properties;
-    private static final String PATH = "src/main/resources/redisConfig.properties";
+    private static final String PATH = "src/main/resources/config.properties";
     private Jedis connection;
 
     public RedisConnectionUtil() {
@@ -33,11 +33,11 @@ public class RedisConnectionUtil {
     }
 
     private String getServer() {
-        return this.properties.getProperty("server");
+        return this.properties.getProperty("redis.server");
     }
 
     private int getPort() {
-        return Integer.parseInt(this.properties.getProperty("port"));
+        return Integer.parseInt(this.properties.getProperty("redis.port"));
     }
     
     public Jedis getConnection(){
