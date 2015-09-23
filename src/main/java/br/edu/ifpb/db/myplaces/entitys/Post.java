@@ -21,6 +21,7 @@ public class Post {
     private Date date;
     private String text;
     private List<Comment> comments;
+    private Place location;
 
     public Post() {
         this.comments = new ArrayList<>();
@@ -73,10 +74,19 @@ public class Post {
         this.comments.add(comment);
     }
 
+    public Place getLocation() {
+        return location;
+    }
+
+    public void setlocation(Place place) {
+        this.location = place;
+    }
+    
     public Document toDocument() {
         Document doc = new Document();
         doc.append("author", this.author).append("date", this.date).append("text", this.text);
-        BasicDBList commentList = new BasicDBList();
+        doc.append("location", this.location.toDocument());
+        BasicDBList commentList = new BasicDBList();        
         for (Comment comment : comments) {
             commentList.add(comment.toDocument());
         }
@@ -86,10 +96,11 @@ public class Post {
 
     public static Post fromDocument(Document document) {
         Post post = new Post();
-        post.setId(document.getString("id"));
+        post.setId(document.getObjectId("_id").toString());
         post.setAuthor(document.getString("author"));
         post.setText(document.getString("text"));
         post.setDate(document.getDate("date"));
+        post.setlocation(Place.fromDocument((Document) document.get("location")));
         List<Document> docs = (List<Document>) document.get("comments");
         for (Document doc : docs) {
             post.addComment(Comment.fromDocument(doc));

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.bson.Document;
 
 /**
  *
@@ -59,6 +60,18 @@ public class Place implements Serializable{
     public void setLng(double lng) {
         this.lng = lng;
     }
-    
-    
+
+    public Document toDocument() {
+        Document document = new Document();
+        document.append("description", this.description).append("lat", this.lat).append("lng", this.lng);
+        return document;
+    }
+
+    public static Place fromDocument(Document document) {
+        Place place = new Place();
+        place.setDescription(document.getString("description"));
+        place.setLat(document.getDouble("lat"));
+        place.setLng(document.getDouble("lng"));
+        return place;
+    }
 }
