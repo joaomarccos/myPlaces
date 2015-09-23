@@ -9,6 +9,7 @@ import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -56,15 +57,17 @@ public class PostDao {
         mongoUtil.closeConnection();
     }
 
-    public boolean comment(String postId, Comment comment) {
-        return true;
+    public void comment(ObjectId postID, Comment comment) {
+        collection = mongoUtil.getConnection().getCollection("Post");
+        collection.updateOne(eq("_id",postID), new Document("$addToSet", new Document("comments", comment.toDocument())));
+        mongoUtil.closeConnection();
     }
 
-    public boolean updateComment(Comment comment) {
-        return true;
+    public void updateComment(Comment comment) {
+        
     }
 
-    public boolean removeComment(String commentId) {
-        return true;
+    public void removeComment(String commentId) {
+        
     }
 }
