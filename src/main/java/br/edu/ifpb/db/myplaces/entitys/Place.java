@@ -1,11 +1,19 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-public class Place{
-       
+@Entity
+public class Place implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String description;
     private double lat;

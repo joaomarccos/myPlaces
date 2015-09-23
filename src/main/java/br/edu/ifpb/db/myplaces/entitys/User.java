@@ -1,11 +1,16 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-public class User {
-
+@Entity
+public class User implements Serializable {
+    @Id
     private String email;
     private String name;
     private int age;
