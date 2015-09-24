@@ -3,6 +3,7 @@ package br.edu.ifpb.db.myplaces.dao.mongodb;
 import br.edu.ifpb.db.myplaces.entitys.Comment;
 import br.edu.ifpb.db.myplaces.entitys.Post;
 import com.mongodb.Block;
+import com.mongodb.QueryBuilder;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
@@ -63,11 +64,17 @@ public class PostDao {
         mongoUtil.closeConnection();
     }
 
-    public void updateComment(Comment comment) {
-        
+    public void updateComment(ObjectId postID, String commentID, String newComment) {
+        collection = mongoUtil.getConnection().getCollection("Post");
+        Document comment = new Document();
+        comment.append("_id", postID).append("comments.id", commentID);
+        collection.updateOne(comment, new Document("$set",new Document("comments.$.description",newComment)));
+        mongoUtil.closeConnection();
     }
 
-    public void removeComment(String commentId) {
-        
+    public void removeComment(ObjectId postID, String commentId) {
+        collection = mongoUtil.getConnection().getCollection("Post");                        
+        collection.updateOne(eq("_id",postID), new Document("$pull", new Document("comments", new Document("id",commentId))));
+        mongoUtil.closeConnection();
     }
 }

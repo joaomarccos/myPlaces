@@ -58,7 +58,7 @@ public class Comment {
 
     public Document toDocument() {
         Document doc = new Document();
-        doc.append("author", this.author).append("date", this.date).append("description", this.description);
+        doc.append("id", this._id).append("author", this.author).append("date", this.date).append("description", this.description);
         return doc;
     }
 
