@@ -3,7 +3,6 @@ package br.edu.ifpb.db.myplaces.dao.mongodb;
 import br.edu.ifpb.db.myplaces.entitys.Comment;
 import br.edu.ifpb.db.myplaces.entitys.Post;
 import com.mongodb.Block;
-import com.mongodb.QueryBuilder;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
