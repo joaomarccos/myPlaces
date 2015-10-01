@@ -19,7 +19,7 @@ public class UserDaoRedis {
         rcu.closeConnection();
     }
     
-    public void update(User user, String newPassword){
+    public void updatePassword(User user, String newPassword){
         save(user, newPassword);
     }
     
