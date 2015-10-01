@@ -30,9 +30,9 @@ public class PostDao {
         mongoUtil.closeConnection();
     }
 
-    public void remove(Post post) {
+    public void remove(ObjectId id) {
         collection = mongoUtil.getConnection().getCollection("Post");
-        collection.deleteOne(eq("_id", post.getId()));
+        collection.deleteOne(eq("_id", id));          
         mongoUtil.closeConnection();
     }
 
