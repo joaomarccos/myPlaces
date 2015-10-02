@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class UserPlaceDao {
 
-    private Neo4jConnectionUtil connectionUtil;
+    private final Neo4jConnectionUtil connectionUtil;
 
     public UserPlaceDao() {
         this.connectionUtil = new Neo4jConnectionUtil();

@@ -17,7 +17,7 @@ import org.bson.types.ObjectId;
  */
 public class PostDao {
 
-    private MongoDBConnectionUtil mongoUtil;
+    private final MongoDBConnectionUtil mongoUtil;
     private MongoCollection<Document> collection;
 
     public PostDao() {
