@@ -35,7 +35,7 @@ public class Neo4jConnectionUtil {
     }
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
-        if (this.connection != null && this.connection.isClosed()) {
+        if (this.connection != null && !this.connection.isClosed()) {
             return this.connection;
         }
         Class.forName("org.neo4j.jdbc.Driver");
