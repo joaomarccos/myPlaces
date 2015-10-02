@@ -7,9 +7,8 @@ import org.bson.Document;
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-public class Place implements Serializable{
-   
-    private int id;
+public class Place implements Serializable {
+
     private String description;
     private double lat;
     private double lng;
@@ -21,14 +20,6 @@ public class Place implements Serializable{
         this.description = description;
         this.lat = lat;
         this.lng = lng;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescription() {
