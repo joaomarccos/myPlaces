@@ -1,13 +1,9 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
 import com.mongodb.BasicDBList;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.bson.BsonArray;
-import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 

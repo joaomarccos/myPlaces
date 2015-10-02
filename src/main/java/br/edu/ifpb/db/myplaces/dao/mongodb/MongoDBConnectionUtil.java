@@ -2,6 +2,7 @@ package br.edu.ifpb.db.myplaces.dao.mongodb;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoIterable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -23,6 +24,7 @@ public class MongoDBConnectionUtil {
 
     public MongoDBConnectionUtil() {
         loadConfigFile();
+        createCollection();
     }
 
     private void loadConfigFile() {
@@ -37,9 +39,22 @@ public class MongoDBConnectionUtil {
     public MongoDatabase getConnection() {
         if (this.db == null) {
             this.mongoClient = new MongoClient(getHost(), getPort());
-            this.db = this.mongoClient.getDatabase(getDB());
+            this.db = this.mongoClient.getDatabase(getDB());            
         }
         return this.db;
+    }
+
+    private void createCollection() {
+        getConnection();
+        MongoIterable<String> collections = db.listCollectionNames();
+        boolean haveCollection = false;
+        for (String collection : collections) {
+            if(collection.equals("Post"))
+                haveCollection = true;
+        }
+        if(!haveCollection){
+            db.createCollection("Post");
+        }
     }
 
     public void closeConnection() {
