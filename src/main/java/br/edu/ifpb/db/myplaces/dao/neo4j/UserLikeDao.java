@@ -1,6 +1,5 @@
 package br.edu.ifpb.db.myplaces.dao.neo4j;
 
-import br.edu.ifpb.db.myplaces.entitys.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,11 +13,11 @@ import org.bson.types.ObjectId;
  *
  * @author joaomarcos
  */
-public class LikesDao {
+public class UserLikeDao {
 
     private final Neo4jConnectionUtil connectionUtil;
 
-    public LikesDao() {
+    public UserLikeDao() {
         this.connectionUtil = new Neo4jConnectionUtil();
     }
 
