@@ -6,11 +6,11 @@ import br.edu.ifpb.db.myplaces.entitys.User;
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-public class UserDaoRedis {
+public class UserLoginDao {
     
     private final RedisConnectionUtil rcu;
 
-    public UserDaoRedis() {        
+    public UserLoginDao() {        
         this.rcu = new RedisConnectionUtil();
     }
     
@@ -23,8 +23,8 @@ public class UserDaoRedis {
         save(user, newPassword);
     }
     
-    public String getPassword(User user){
-        return rcu.getConnection().get(user.getEmail());
+    public String getPassword(String email){
+        return rcu.getConnection().get(email);
     }
     
     public void remove(User user){
