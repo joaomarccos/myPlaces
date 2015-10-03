@@ -119,7 +119,7 @@ public class RelationshipDao {
         return isFollower;
     }
 
-    public int numberFollwers(String email) {
+    public int numberOfFollwers(String email) {
         int numberOfFollowers = 0;
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
