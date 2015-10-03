@@ -141,4 +141,28 @@ public class RelationshipDao {
         }
         return numberOfFollowers;
     }
+    
+    public List<String> following(String email){
+        List<String> listOfEmails = new ArrayList<>();
+        try (Statement stat = connectionUtil.getConnection().createStatement()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("MATCH (").append("{email:\"").append(email);
+            sb.append("\"})<-[:FOLLOW]-(n) return n.email");
+            ResultSet result = stat.executeQuery(sb.toString());
+            while (result.next()) {
+                listOfEmails.add(result.getString("n.email"));
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RelationshipDao.class.getName()).log(Level.SEVERE, "Driver Problem", ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelationshipDao.class.getName()).log(Level.SEVERE, "Query error", ex);
+        } finally {
+            try {
+                connectionUtil.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(RelationshipDao.class.getName()).log(Level.SEVERE, "Error on to close connection", ex);
+            }
+        }
+        return listOfEmails;
+    }
 }
