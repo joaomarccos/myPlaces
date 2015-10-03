@@ -3,7 +3,10 @@ package br.edu.ifpb.db.myplaces.dao;
 import br.edu.ifpb.db.myplaces.dao.jpa.Dao;
 import br.edu.ifpb.db.myplaces.dao.jpa.GenericJpaDao;
 import br.edu.ifpb.db.myplaces.dao.mongodb.PostDao;
-import br.edu.ifpb.db.myplaces.dao.redis.UserDaoRedis;
+import br.edu.ifpb.db.myplaces.dao.neo4j.RelationshipDao;
+import br.edu.ifpb.db.myplaces.dao.neo4j.UserLikeDao;
+import br.edu.ifpb.db.myplaces.dao.neo4j.UserPlaceDao;
+import br.edu.ifpb.db.myplaces.dao.redis.UserLoginDao;
 
 /**
  *
@@ -12,14 +15,27 @@ import br.edu.ifpb.db.myplaces.dao.redis.UserDaoRedis;
 public class DaoFactory {
 
     public static Dao createDaoJpa() {
-        return new GenericJpaDao();
+        return new GenericJpaDao("br.edu.ifpb.db_mls");
     }
     
-    public static UserDaoRedis createUserDaoToRedis(){
-        return new UserDaoRedis();
+    public static UserLoginDao createUserLoginDao(){
+        return new UserLoginDao();
     }
     
     public static PostDao createPostDao(){
         return new PostDao();
     }
+    
+    public static RelationshipDao createRelationshipDao(){
+        return new RelationshipDao();
+    }
+    
+    public static UserLikeDao createUserLikeDao(){
+        return new UserLikeDao();
+    }
+    
+    public static UserPlaceDao createUserPlaceDao(){
+        return new UserPlaceDao();
+    }
+        
 }
