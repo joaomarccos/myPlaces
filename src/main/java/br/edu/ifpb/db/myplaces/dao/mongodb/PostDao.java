@@ -49,7 +49,7 @@ public class PostDao {
         });        
         mongoUtil.closeConnection();
         return posts;
-    }   
+    }
 
     public void update(Post post) {
         collection = mongoUtil.getConnection().getCollection("Post");
