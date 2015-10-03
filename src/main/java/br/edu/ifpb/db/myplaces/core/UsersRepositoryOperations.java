@@ -86,4 +86,16 @@ public class UsersRepositoryOperations {
         }
         return suggestedUsers;
     }
+    
+    public List<User> following(String email){
+        List<String> userEmails = relationshipDao.following(email);
+        List<User> following = new ArrayList<>();
+        User user;
+        for (String e : userEmails) {
+            if ((user = dao.find(e, User.class)) != null) {
+                following.add(user);
+            }
+        }
+        return following;
+    } 
 }
