@@ -41,14 +41,13 @@ public class RedisConnectionUtil {
     }
 
     public Jedis getConnection() {
-        if (this.connection == null) {
+        if (this.connection == null || !this.connection.isConnected()) {
             this.connection = new Jedis(getHost(), getPort());
         }
         return connection;
     }
 
-    public void closeConnection() {
-        this.connection = null;
+    public void closeConnection() {        
         this.connection.close();
     }
 }
