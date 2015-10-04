@@ -1,9 +1,9 @@
 package br.edu.ifpb.db.myplaces.dao.neo4j;
 
+import br.edu.ifpb.db.myplaces.dao.file.GetterConfigFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 public class Neo4jConnectionUtil {
 
     private Properties properties;
-    private static final String PATH = "src/main/resources/config.properties";
     private Connection connection;
 
     public Neo4jConnectionUtil() {
@@ -27,7 +26,7 @@ public class Neo4jConnectionUtil {
 
     private void loadConfigFile() {
         this.properties = new Properties();
-        try (InputStream in = Files.newInputStream(Paths.get(PATH))) {
+        try (InputStream in = Files.newInputStream(new GetterConfigFile().getPath())) {
             this.properties.load(in);
         } catch (IOException ex) {
             Logger.getLogger(Neo4jConnectionUtil.class.getName()).log(Level.SEVERE, null, ex);

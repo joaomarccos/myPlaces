@@ -1,8 +1,11 @@
 package br.edu.ifpb.db.myplaces.dao.redis;
 
+import br.edu.ifpb.db.myplaces.dao.file.GetterConfigFile;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -15,17 +18,16 @@ import redis.clients.jedis.Jedis;
  */
 public class RedisConnectionUtil {
 
-    private Properties properties;
-    private static final String PATH = "src/main/resources/config.properties";
+    private Properties properties;   
     private Jedis connection;
 
-    public RedisConnectionUtil() {
+    public RedisConnectionUtil() {        
         loadConfigFile();
-    }
+    }  
 
     private void loadConfigFile() {
         this.properties = new Properties();
-        try (InputStream in = Files.newInputStream(Paths.get(PATH))) {
+        try (InputStream in = Files.newInputStream(new GetterConfigFile().getPath())) {
             this.properties.load(in);
         } catch (IOException ex) {
             Logger.getLogger(RedisConnectionUtil.class.getName()).log(Level.SEVERE, null, ex);
