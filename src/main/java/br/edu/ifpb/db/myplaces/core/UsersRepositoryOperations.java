@@ -7,7 +7,6 @@ import br.edu.ifpb.db.myplaces.dao.jpa.Dao;
 import br.edu.ifpb.db.myplaces.dao.neo4j.RelationshipDao;
 import br.edu.ifpb.db.myplaces.dao.redis.UserLoginDao;
 import br.edu.ifpb.db.myplaces.entitys.User;
-import com.sun.corba.se.spi.activation.RepositoryOperations;
 import java.util.ArrayList;
 import java.util.List;
 
