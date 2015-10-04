@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.db.myplaces.servlets;
+package br.edu.ifpb.db.myplaces.filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
