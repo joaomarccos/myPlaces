@@ -1,30 +1,32 @@
 package br.edu.ifpb.db.myplaces.dao.redis;
 
+import br.edu.ifpb.db.myplaces.entitys.Prefer;
 import br.edu.ifpb.db.myplaces.entitys.User;
+import com.google.gson.Gson;
 
 /**
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-public class UserLoginDao {
+public class UserPreferDao {
     
     private final RedisConnectionUtil rcu;
 
-    public UserLoginDao() {        
+    public UserPreferDao() {        
         this.rcu = new RedisConnectionUtil();
     }
     
-    public void save(User user, String password){
-        rcu.getConnection().set(user.getEmail(), password);
+    public void savePrefer(User user, Prefer prefer){
+        rcu.getConnection().set(user.getEmail(), new Gson().toJson(prefer));
         rcu.closeConnection();
     }
     
-    public void updatePassword(User user, String newPassword){
-        save(user, newPassword);
+    public void updatePrefer(User user, Prefer prefer){
+        savePrefer(user, prefer);
     }
     
-    public String getPassword(String email){
-        return rcu.getConnection().get(email);
+    public Prefer getPrefer(String email){
+        return new Gson().fromJson(rcu.getConnection().get(email), Prefer.class);
     }
     
     public void remove(User user){
