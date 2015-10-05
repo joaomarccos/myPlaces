@@ -147,7 +147,7 @@ public class RelationshipDao {
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
             sb.append("MATCH (").append("{email:\"").append(email);
-            sb.append("\"})<-[:FOLLOW]-(n) return n.email");
+            sb.append("\"})-[:FOLLOW]->(n) return n.email");
             ResultSet result = stat.executeQuery(sb.toString());
             while (result.next()) {
                 listOfEmails.add(result.getString("n.email"));
