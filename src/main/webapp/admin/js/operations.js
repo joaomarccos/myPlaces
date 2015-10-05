@@ -63,7 +63,27 @@ function like(postid) {
 
 }
 
-$(document).ready(function () {
+function getPrefer(user) {
+    $.getJSON('prefer?op=get', function (data) {
+        chooseTheme(data.font, data.colorTheme);
+    });
+}
+
+function setPrefer(user, font, theme) {
+    $.getJSON('prefer?op=set&font='+font+'&theme='+theme, function (data) {
+        chooseTheme(data.font, data.colorTheme);
+    });
+}
+
+/**
+ * trocar o css aqui!
+ */
+function chooseTheme(font, themeName) {
+    //todo
+    console.log(font+" -- "+themeName);    
+}
+
+$(document).ready(function () {    
     updateFeed();
     getSuggests();
     $("#updateButton").hide();
