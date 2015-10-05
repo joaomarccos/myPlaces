@@ -2,9 +2,11 @@ package br.edu.ifpb.db.myplaces.servlets;
 
 import br.edu.ifpb.db.myplaces.core.JsonResult;
 import br.edu.ifpb.db.myplaces.core.UsersRepositoryOperations;
+import br.edu.ifpb.db.myplaces.entitys.Place;
 import br.edu.ifpb.db.myplaces.entitys.User;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,9 +31,11 @@ public class SuggestServlet extends HttpServlet {
             throws ServletException, IOException {
         UsersRepositoryOperations operations = new UsersRepositoryOperations();
         User user = (User) request.getSession().getAttribute("user");
-        request.getSession().setAttribute("suggested-users", operations.suggestedPersonsToFollow(user.getEmail()));
-        request.getSession().setAttribute("suggested-places", operations.suggestedPlacesFor(user.getEmail()));
-        response.getWriter().print(new Gson().toJson(new JsonResult(true, "")));
+        List<User> users = operations.suggestedPersonsToFollow(user.getEmail());
+        List<Place> places = operations.suggestedPlacesFor(user.getEmail());        
+        request.getSession().setAttribute("sgusers", users);
+        request.getSession().setAttribute("sgplaces", places);
+        response.getWriter().print(new Gson().toJson(new JsonResult(true, users.size()+" Users, "+places.size()+" places")));
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
