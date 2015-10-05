@@ -21,16 +21,24 @@ public class User implements Serializable {
     @Embedded
     private Address address;
     private String image;
+    private String password;
 
     public User() {
     }
 
-    public User(String email, String name, int age, String bio) {
+    public User(String email, String name, String password) {
         this.email = email;
         this.name = name;
-        this.age = age;
-        this.bio = bio;
+        this.password = password;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }        
 
     public String getEmail() {
         return email;
