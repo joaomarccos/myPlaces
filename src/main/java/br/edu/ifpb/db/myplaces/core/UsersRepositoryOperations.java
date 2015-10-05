@@ -6,8 +6,9 @@ import br.edu.ifpb.db.myplaces.dao.DaoFactory;
 import br.edu.ifpb.db.myplaces.dao.jpa.Dao;
 import br.edu.ifpb.db.myplaces.dao.neo4j.RelationshipDao;
 import br.edu.ifpb.db.myplaces.dao.neo4j.UserPlaceDao;
-import br.edu.ifpb.db.myplaces.dao.redis.UserLoginDao;
+import br.edu.ifpb.db.myplaces.dao.redis.UserPreferDao;
 import br.edu.ifpb.db.myplaces.entitys.Place;
+import br.edu.ifpb.db.myplaces.entitys.Prefer;
 import br.edu.ifpb.db.myplaces.entitys.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 public class UsersRepositoryOperations {
 
     private final Dao<User> dao = DaoFactory.createDaoJpa();
-    private final UserLoginDao loginDao = DaoFactory.createUserLoginDao();
+    private final UserPreferDao preferDao = DaoFactory.createUserLoginDao();
     private final RelationshipDao relationshipDao = DaoFactory.createRelationshipDao();
     private final UserPlaceDao placeDao = DaoFactory.createUserPlaceDao();
 
@@ -27,9 +28,9 @@ public class UsersRepositoryOperations {
         User user = new User();
         user.setName(userName);
         user.setEmail(email);
-
+        user.setPassword(Encrypter.encrypt(password));
         if (dao.save(user)) {
-            loginDao.save(user, Encrypter.encrypt(password));
+            preferDao.savePrefer(user, new Prefer("Arial", "default"));
             return dao.find(email, User.class);
         }
 
@@ -37,19 +38,20 @@ public class UsersRepositoryOperations {
     }
 
     public User login(String email, String password) throws LoginException {
-        String storedPassword = loginDao.getPassword(email);
-        if (storedPassword == null || storedPassword.isEmpty()) {
+        User user = dao.find(email, User.class);
+        if (user == null) {
             throw new LoginException("Usuário não registrado");
         }
-        if (Encrypter.encrypt(password).equals(storedPassword)) {
-            return dao.find(email, User.class);
+        if (Encrypter.encrypt(password).equals(user.getPassword())) {
+            return user;
         } else {
             throw new LoginException("Email ou senha inválidos");
         }
     }
 
     public void updatePassword(User user, String newPassword) {
-        loginDao.updatePassword(user, newPassword);
+        user.setPassword(newPassword);
+        dao.update(user);
     }
 
     public void updateInfo(User user) {
@@ -57,7 +59,7 @@ public class UsersRepositoryOperations {
     }
 
     public void deleteAccount(User user) {
-        loginDao.remove(user);
+        preferDao.remove(user);
         dao.remove(user);
     }
 
@@ -88,10 +90,8 @@ public class UsersRepositoryOperations {
         }
         return suggestedUsers;
     }
-    
-    
-    
-    public List<User> following(String email){
+
+    public List<User> following(String email) {
         List<String> userEmails = relationshipDao.following(email);
         List<User> following = new ArrayList<>();
         User user;
@@ -101,13 +101,21 @@ public class UsersRepositoryOperations {
             }
         }
         return following;
-    } 
-    
-    public List<Place> suggestedPlacesFor(String email){
+    }
+
+    public List<Place> suggestedPlacesFor(String email) {
         return placeDao.suggestedPlaces(email);
     }
-    
-    public User getUser(String email){
+
+    public User getUser(String email) {
         return dao.find(email, User.class);
+    }
+
+    public void changeUserTheme(User user, String font, String colorTheme) {
+        preferDao.updatePrefer(user, new Prefer(font, colorTheme));
+    }
+
+    public Prefer getTheme(User user) {
+        return preferDao.getPrefer(user.getEmail());
     }
 }
