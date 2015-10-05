@@ -45,21 +45,22 @@
 
         <div>
             Usuários sugeridos
-            <c:if test="${suggested-users != null}}">
-                <c:forEach items="${suggested-users}" var="sg-user">
-                    ${sg-user.name}
+            <c:if test="${sgusers != null}}">
+                <c:forEach items="${sgusers}" var="sguser">
+                    <a href="profile?user=${sguser.email}">${sguser.name}</a>
                 </c:forEach>
             </c:if>
         </div>
 
         <div>
-            Locais sugeridos
-            <c:if test="${suggested-places != 0}">                
-                    <c:forEach items="${suggested-places}" var="sg-place">
-                        <p>
-                            <em>${sg-place.description}</em>                        
-                        </p>
-                    </c:forEach>
+            Locais recentemente visitados
+            <c:if test="${sgplaces != null}">
+                <c:forEach items="${sgplaces}" var="sgplace">
+                    <p>
+                        <em>${sgplace.description}</em><br>
+                        <img src="https://maps.googleapis.com/maps/api/staticmap?center=${sgplace.lat},${sgplace.lng}&zoom=13&size=150x150&markers=color:red%7C${sgplace.lat},${sgplace.lng}&key=AIzaSyDPSWd4ujOrb1Hhv0rDnKnW9oVG3zNfjWo">                    
+                    </p>
+                </c:forEach>
             </c:if>
         </div>
         <br>
@@ -101,6 +102,9 @@
                 </c:forEach>                                            
             </c:if>
         </div>
+        <script>
+            getPrefer("${user.email}");
+        </script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
         <script src="js/map.js" type="text/javascript"></script>
     </body>
