@@ -29,10 +29,11 @@ public class PostRepositoryOperations {
     private final UserLikeDao likesDao = DaoFactory.createUserLikeDao();
     private final UserPlaceDao placeDao = DaoFactory.createUserPlaceDao();
 
-    public void newPost(String author, String text, String placeDescription, double lat, double lng) {
+    public void newPost(String author, String userName, String text, String placeDescription, double lat, double lng) {
         Post post = new Post();
         post.setAuthor(author);
         post.setText(text);
+        post.setUsername(userName);
         post.setDate(Calendar.getInstance().getTime());
         Place place = new Place(placeDescription, lat, lng);
         post.setlocation(place);
@@ -40,7 +41,7 @@ public class PostRepositoryOperations {
         placeDao.registerNewPlace(place, author, LocalDateTime.ofInstant(post.getDate().toInstant(), ZoneId.systemDefault()));
     }
 
-    public void removePost(ObjectId postId) {
+    public void removePost(String postId) {
         postDao.remove(postId);
     }
 
@@ -52,36 +53,36 @@ public class PostRepositoryOperations {
         postDao.update(post);
     }
 
-    public void commentPost(ObjectId postId, String commentText, Date date, String author) {
-        Comment comment = new Comment(author, date, commentText);
+    public void commentPost(String postId, String commentText, Date date, String author, String username) {
+        Comment comment = new Comment(author, date, commentText, username);
         postDao.comment(postId, comment);
     }
 
-    public void editComment(ObjectId postID, String commentID, String newComment) {
+    public void editComment(String postID, String commentID, String newComment) {
         postDao.updateComment(postID, commentID, newComment);
     }
 
-    public void deleteComment(ObjectId postID, String commentId) {
+    public void deleteComment(String postID, String commentId) {
         postDao.removeComment(postID, commentId);
     }
 
-    public void likePost(String email, ObjectId postID) {
+    public void likePost(String email, String postID) {
         likesDao.likePost(email, postID);
     }
 
-    public void dislikePost(String email, ObjectId postID) {
+    public void dislikePost(String email, String postID) {
         likesDao.dislikePost(email, postID);
     }
 
-    public boolean isLikedFor(ObjectId postID, String email) {
+    public boolean isLikedFor(String postID, String email) {
         return likesDao.isLikedFor(postID, email);
     }
 
-    public int numberOfLikes(ObjectId postId) {
+    public int numberOfLikes(String postId) {
         return likesDao.numberOfLikes(postId);
     }
 
-    public List<User> findUsersThatLikeIt(ObjectId postID) {
+    public List<User> findUsersThatLikeIt(String postID) {
         List<String> emails = likesDao.findUsersThatLikeIt(postID);
         User user;
         List<User> users = new ArrayList<>();

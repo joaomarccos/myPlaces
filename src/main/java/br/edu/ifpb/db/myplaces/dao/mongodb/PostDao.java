@@ -30,9 +30,9 @@ public class PostDao {
         mongoUtil.closeConnection();
     }
 
-    public void remove(ObjectId id) {
+    public void remove(String id) {
         collection = mongoUtil.getConnection().getCollection("Post");
-        collection.deleteOne(eq("_id", id));          
+        collection.deleteOne(eq("id", id));          
         mongoUtil.closeConnection();
     }
 
@@ -53,27 +53,27 @@ public class PostDao {
 
     public void update(Post post) {
         collection = mongoUtil.getConnection().getCollection("Post");
-        collection.updateOne(eq("_id",post.getId()), new Document("$set", post.toDocument()));
+        collection.updateOne(eq("id",post.getId()), new Document("$set", post.toDocument()));
         mongoUtil.closeConnection();
     }
 
-    public void comment(ObjectId postID, Comment comment) {
+    public void comment(String postID, Comment comment) {
         collection = mongoUtil.getConnection().getCollection("Post");
-        collection.updateOne(eq("_id",postID), new Document("$addToSet", new Document("comments", comment.toDocument())));
+        collection.updateOne(eq("id",postID), new Document("$addToSet", new Document("comments", comment.toDocument())));
         mongoUtil.closeConnection();
     }
 
-    public void updateComment(ObjectId postID, String commentID, String newComment) {
+    public void updateComment(String postID, String commentID, String newComment) {
         collection = mongoUtil.getConnection().getCollection("Post");
         Document comment = new Document();
-        comment.append("_id", postID).append("comments.id", commentID);
+        comment.append("id", postID).append("comments.id", commentID);
         collection.updateOne(comment, new Document("$set",new Document("comments.$.description",newComment)));
         mongoUtil.closeConnection();
     }
 
-    public void removeComment(ObjectId postID, String commentId) {
+    public void removeComment(String postID, String commentId) {
         collection = mongoUtil.getConnection().getCollection("Post");                        
-        collection.updateOne(eq("_id",postID), new Document("$pull", new Document("comments", new Document("id",commentId))));
+        collection.updateOne(eq("id",postID), new Document("$pull", new Document("comments", new Document("id",commentId))));
         mongoUtil.closeConnection();
     }
 }
