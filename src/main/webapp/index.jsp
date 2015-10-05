@@ -56,8 +56,11 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  method="post" action="" autocomplete="on"> 
+                            <form  method="post" action="register" autocomplete="on"> 
                                 <h1> Sign up </h1> 
+                                <c:if test="${error!=null}">
+                                    ${error}
+                                </c:if>
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
                                     <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
