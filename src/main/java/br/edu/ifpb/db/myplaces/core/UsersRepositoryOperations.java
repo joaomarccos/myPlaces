@@ -5,7 +5,9 @@ import br.edu.ifpb.db.myplaces.core.exceptions.LoginException;
 import br.edu.ifpb.db.myplaces.dao.DaoFactory;
 import br.edu.ifpb.db.myplaces.dao.jpa.Dao;
 import br.edu.ifpb.db.myplaces.dao.neo4j.RelationshipDao;
+import br.edu.ifpb.db.myplaces.dao.neo4j.UserPlaceDao;
 import br.edu.ifpb.db.myplaces.dao.redis.UserLoginDao;
+import br.edu.ifpb.db.myplaces.entitys.Place;
 import br.edu.ifpb.db.myplaces.entitys.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class UsersRepositoryOperations {
     private final Dao<User> dao = DaoFactory.createDaoJpa();
     private final UserLoginDao loginDao = DaoFactory.createUserLoginDao();
     private final RelationshipDao relationshipDao = DaoFactory.createRelationshipDao();
+    private final UserPlaceDao placeDao = DaoFactory.createUserPlaceDao();
 
     public User registerNewUser(String userName, String email, String password) throws CreateAccountException {
         User user = new User();
@@ -86,6 +89,8 @@ public class UsersRepositoryOperations {
         return suggestedUsers;
     }
     
+    
+    
     public List<User> following(String email){
         List<String> userEmails = relationshipDao.following(email);
         List<User> following = new ArrayList<>();
@@ -97,4 +102,12 @@ public class UsersRepositoryOperations {
         }
         return following;
     } 
+    
+    public List<Place> suggestedPlacesFor(String email){
+        return placeDao.suggestedPlaces(email);
+    }
+    
+    public User getUser(String email){
+        return dao.find(email, User.class);
+    }
 }

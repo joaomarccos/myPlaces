@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -21,7 +20,7 @@ public class UserLikeDao {
         this.connectionUtil = new Neo4jConnectionUtil();
     }
 
-    public void likePost(String email, ObjectId postID) {
+    public void likePost(String email, String postID) {
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
             String userIdentifier = email.split("@")[0];
@@ -44,7 +43,7 @@ public class UserLikeDao {
         }
     }
 
-    public void dislikePost(String email, ObjectId postID) {
+    public void dislikePost(String email, String postID) {
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
             sb.append("MATCH (").append("{email:\"").append(email);
@@ -64,7 +63,7 @@ public class UserLikeDao {
         }
     }
    
-    public List<String> findUsersThatLikeIt(ObjectId postID) {
+    public List<String> findUsersThatLikeIt(String postID) {
         List<String> listOfEmails = new ArrayList<>();
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
@@ -88,7 +87,7 @@ public class UserLikeDao {
         return listOfEmails;
     }
 
-    public boolean isLikedFor(ObjectId postID, String email) {
+    public boolean isLikedFor(String postID, String email) {
         boolean isLiked = false;
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
@@ -114,7 +113,7 @@ public class UserLikeDao {
     }
     
     @Deprecated
-    public int numberOfLikes(ObjectId postId){
+    public int numberOfLikes(String postId){
         int nLikes = 0;
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
