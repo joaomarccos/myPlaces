@@ -1,21 +1,14 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import org.bson.Document;
 
 /**
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-@Entity
-public class Place implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+public class Place implements Serializable {
+
     private String description;
     private double lat;
     private double lng;
@@ -27,14 +20,6 @@ public class Place implements Serializable{
         this.description = description;
         this.lat = lat;
         this.lng = lng;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescription() {

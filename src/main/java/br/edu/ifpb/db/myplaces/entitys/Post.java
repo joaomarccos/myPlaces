@@ -1,13 +1,10 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
 import com.mongodb.BasicDBList;
-import java.time.Instant;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.bson.BsonArray;
-import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -15,17 +12,19 @@ import org.bson.types.ObjectId;
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-public class Post {
+public class Post implements Serializable{
 
-    private ObjectId id;
+    private String id;
     private String author;
+    private String username;
     private Date date;
     private String text;
     private List<Comment> comments;
     private Place location;
-
+            
     public Post() {
-        this.comments = new ArrayList<>();
+        this.comments = new ArrayList<Comment>();
+        this.id = ObjectId.get().toString();
     }
 
     public Post(String author, Date date, String text) {
@@ -35,11 +34,11 @@ public class Post {
         this.text = text;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,6 +46,14 @@ public class Post {
         return author;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -71,6 +78,14 @@ public class Post {
         return comments;
     }
 
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void setLocation(Place location) {
+        this.location = location;
+    }
+    
     public void addComment(Comment comment) {
         this.comments.add(comment);
     }
@@ -86,6 +101,7 @@ public class Post {
     public Document toDocument() {
         Document doc = new Document();
         doc.append("author", this.author).append("date", this.date).append("text", this.text);
+        doc.append("username", this.username).append("id", this.id);
         doc.append("location", this.location.toDocument());
         BasicDBList commentList = new BasicDBList();        
         for (Comment comment : comments) {
@@ -97,8 +113,9 @@ public class Post {
 
     public static Post fromDocument(Document document) {
         Post post = new Post();
-        post.setId(document.getObjectId("_id"));
+        post.setId(document.getString("id"));
         post.setAuthor(document.getString("author"));
+        post.setUsername(document.getString("username"));
         post.setText(document.getString("text"));
         post.setDate(document.getDate("date"));
         post.setlocation(Place.fromDocument((Document) document.get("location")));

@@ -1,9 +1,12 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
+import javax.persistence.Embeddable;
+
 /**
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
+@Embeddable
 public class Address {
 
     private String country;

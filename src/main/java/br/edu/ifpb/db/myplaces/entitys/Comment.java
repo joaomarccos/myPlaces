@@ -1,35 +1,39 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
+import java.io.Serializable;
 import java.util.Date;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
-public class Comment {
+public class Comment implements Serializable{
 
-    private String _id;
+    private String id;
     private Date date;
     private String description;
     private String author;
+    private String username;
 
     public Comment() {
     }
 
-    public Comment(String id, String author, Date date, String description) {
+    public Comment(String author, Date date, String description, String username) {
         this.author = author;
         this.date = date;
         this.description = description;
-        this._id = id;
+        this.id = ObjectId.get().toString();
+        this.username = username;
     }
 
     public String getId() {
-        return _id;
+        return id;
     }
 
     public void setId(String _id) {
-        this._id = _id;
+        this.id = _id;
     }
     
     public Date getDate() {
@@ -56,9 +60,18 @@ public class Comment {
         this.author = author;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     public Document toDocument() {
         Document doc = new Document();
-        doc.append("id", this._id).append("author", this.author).append("date", this.date).append("description", this.description);
+        doc.append("id", this.id).append("author", this.author).append("date", this.date).append("description", this.description);
+        doc.append("username", this.username);
         return doc;
     }
 
@@ -68,6 +81,7 @@ public class Comment {
         comment.setAuthor(document.getString("author"));
         comment.setDate(document.getDate("date"));
         comment.setDescription(document.getString("description"));        
+        comment.setUsername(document.getString("username"));
 
         return comment;
     }

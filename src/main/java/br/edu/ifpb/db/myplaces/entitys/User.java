@@ -1,20 +1,24 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
 import java.io.Serializable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author João Marcos F <joaomarccos.ads@gmail.com>
  */
 @Entity
+@Table(name = "Users")
 public class User implements Serializable {
     @Id
-    private String email;
+    private String email;    
     private String name;
     private int age;
     private String bio;
+    @Embedded
     private Address address;
     private String image;
 
@@ -60,11 +64,11 @@ public class User implements Serializable {
         this.bio = bio;
     }
 
-    private Address getAdress() {
+    public Address getAdress() {
         return this.address;
     }
 
-    private void setAddress(Address address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
