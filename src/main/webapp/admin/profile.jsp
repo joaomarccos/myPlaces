@@ -23,6 +23,9 @@
             </script>            
             <button id="bt" onclick="follow('${oUser.email}')"></button>
         </c:if>
+        <c:if test="${user.email == oUser.email}">
+            <!--botao do tema-->
+        </c:if>
         <script>
             getNfollowers("${oUser.email}");
         </script>
