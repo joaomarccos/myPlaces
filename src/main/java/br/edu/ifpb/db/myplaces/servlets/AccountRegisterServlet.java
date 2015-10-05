@@ -42,11 +42,11 @@ public class AccountRegisterServlet extends HttpServlet {
                 response.sendRedirect("admin/index.jsp");
             } catch (CreateAccountException ex) {
                 request.setAttribute("error", ex.getMessage());
-                getServletContext().getRequestDispatcher("/index.jsp#toregister").forward(request, response);
+                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
             }
         }else{
             request.setAttribute("error", "Todas os campos são obrigatórios");
-            getServletContext().getRequestDispatcher("/index.jsp#toregister").forward(request, response);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
 
     }
