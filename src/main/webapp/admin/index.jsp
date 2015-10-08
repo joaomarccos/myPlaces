@@ -10,12 +10,26 @@
 <html>
     <head>
         <link href="css/map-style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/theme-green.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/jquery.min.js" type="text/javascript"></script>
         <script src="js/operations.js" type="text/javascript"></script>
         <title>JSP Page</title>
     </head>
     <body>
+        
+        <%@include file="navbar.jsp"%>
+        
+        <div class="container">
+            <div class="row">
+            	<div class="col-md-8 col-md-push-2">
+                    <%@include file="containerPublicar.jsp"%>
+		</div>
+            </div>
+        </div>
+                
         <h1>Main page <small>(fique a vontade de mudar o que quiser, mas não mude os IDs)</small></h1>
         <a href="profile?user=${user.email}">Perfil</a>
         <a href="loggout">Sair</a>
@@ -107,5 +121,6 @@
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
         <script src="js/map.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js"></script>
     </body>
 </html>
