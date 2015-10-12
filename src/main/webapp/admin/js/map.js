@@ -47,8 +47,8 @@ function initMap() {
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
 
-        document.getElementById("lat").value = place.geometry.location.H;
-        document.getElementById("lng").value = place.geometry.location.L;
+        document.getElementById("lat").value = place.geometry.location.lat();
+        document.getElementById("lng").value = place.geometry.location.lng();
 
 
         var address = '';
