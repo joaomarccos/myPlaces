@@ -4,6 +4,7 @@ import br.edu.ifpb.db.myplaces.core.exceptions.CreateAccountException;
 import br.edu.ifpb.db.myplaces.core.exceptions.LoginException;
 import br.edu.ifpb.db.myplaces.dao.DaoFactory;
 import br.edu.ifpb.db.myplaces.dao.jpa.Dao;
+import br.edu.ifpb.db.myplaces.dao.jpa.UserDao;
 import br.edu.ifpb.db.myplaces.dao.neo4j.RelationshipDao;
 import br.edu.ifpb.db.myplaces.dao.neo4j.UserPlaceDao;
 import br.edu.ifpb.db.myplaces.dao.redis.UserPreferDao;
@@ -19,14 +20,15 @@ import java.util.List;
  */
 public class UsersRepositoryOperations {
 
-    private final Dao<User> dao = DaoFactory.createDaoJpa();
+    private final Dao<User> dao = DaoFactory.createGenericDaoJpa();
     private final UserPreferDao preferDao = DaoFactory.createUserLoginDao();
     private final RelationshipDao relationshipDao = DaoFactory.createRelationshipDao();
     private final UserPlaceDao placeDao = DaoFactory.createUserPlaceDao();
+    private final UserDao userDao = DaoFactory.createUserDaoJpa();
 
     public User registerNewUser(String userName, String email, String password) throws CreateAccountException {
         User user = new User();
-        user.setName(userName);
+        user.setName(userName.toLowerCase());
         user.setEmail(email);
         user.setPassword(Encrypter.encrypt(password));
         if (dao.save(user)) {
@@ -117,5 +119,9 @@ public class UsersRepositoryOperations {
 
     public Prefer getTheme(User user) {
         return preferDao.getPrefer(user.getEmail());
+    }
+    
+    public List<User> findByName(String name){
+        return this.userDao.findByName(name);
     }
 }

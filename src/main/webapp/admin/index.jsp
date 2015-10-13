@@ -39,25 +39,11 @@
 
         <div>
             Busca
-            <input id="search" type="text" placeholder="buscar usuários">
-            <div id="resultado-busca">
-
+            <input id="search" type="text" placeholder="buscar usuários" onkeyup="find(this)">
+            <div id="resultado">
+                
             </div>
-        </div>
-
-        <div>            
-            Novo post <small id="post-result"></small>
-            <br>
-            <div id="map-canvas"></div>        
-            <input id="pac-input" class="controls" type="text" name="place-description" placeholder="Informe um local">        
-            <form id="newPost" method="post" action="newPost">                    
-                <input  hidden id="place" name="place" type="text">
-                <input  hidden id="lat" name="lat" type="text">
-                <input  hidden id="lng" name="lng" type="text">            
-                <textarea name="post" cols="40" placeholder="Diga algo sobre isso"></textarea>            
-            </form>
-            <button onclick="submitPost()">Postar</button>
-        </div>
+        </div>       
 
         <div>
             Usuários sugeridos

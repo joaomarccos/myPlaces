@@ -34,8 +34,7 @@ public class FeedServlet extends HttpServlet {
         String sizeList = ""+news.size();
         JsonResult result = new JsonResult(true, sizeList);
         request.getSession().setAttribute("feed", news);
-        response.getWriter().print(new Gson().toJson(result));
-        System.out.println(news.get(0).getComments().size());
+        response.getWriter().print(new Gson().toJson(result));        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

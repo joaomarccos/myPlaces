@@ -83,6 +83,24 @@ function chooseTheme(font, themeName) {
     console.log(font+" -- "+themeName);    
 }
 
+function find(q) {    
+    $.getJSON('findUser?q='+q.value, function (data) {
+        listUsers(data);
+    });
+}
+
+function listUsers(json) {    
+    var html = "<ul>";
+    for (var i = 0; i < json.length; i++) {
+        html+="<li><a href='profile?user="+json[i].email+"'>"+json[i].name+"</a></li>";
+    }
+    if(json.length === 0){
+        html+="<li>Nenhum resultado</li>";
+    }
+    html+="</ul>";
+    $("#resultado").html(html);
+}
+
 $(document).ready(function () {    
     updateFeed();
     getSuggests();

@@ -24,7 +24,7 @@ import org.bson.types.ObjectId;
  */
 public class PostRepositoryOperations {
 
-    private final Dao<User> userDao = DaoFactory.createDaoJpa();
+    private final Dao<User> userDao = DaoFactory.createGenericDaoJpa();
     private final PostDao postDao = DaoFactory.createPostDao();
     private final UserLikeDao likesDao = DaoFactory.createUserLikeDao();
     private final UserPlaceDao placeDao = DaoFactory.createUserPlaceDao();

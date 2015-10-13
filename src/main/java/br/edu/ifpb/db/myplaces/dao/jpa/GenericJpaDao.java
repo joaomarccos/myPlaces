@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
  */
 public class GenericJpaDao<T> implements Dao<T> {
 
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public GenericJpaDao() {
         this("dev");
@@ -72,5 +72,6 @@ public class GenericJpaDao<T> implements Dao<T> {
     public T find(Object key, Class<T> classe) {
         return entityManager.find(classe, key);
     }
+    
 
 }
