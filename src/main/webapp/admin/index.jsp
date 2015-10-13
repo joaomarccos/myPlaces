@@ -12,6 +12,8 @@
         <link href="css/map-style.css" rel="stylesheet" type="text/css"/>
         <link href="css/theme-green.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <title>Feed</title>
+        <link rel="shortcut icon" href="../logo.ico"> 
         <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/jquery.min.js" type="text/javascript"></script>
