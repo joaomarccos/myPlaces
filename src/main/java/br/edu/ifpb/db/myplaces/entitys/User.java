@@ -1,9 +1,11 @@
 package br.edu.ifpb.db.myplaces.entitys;
 
 import java.io.Serializable;
+import java.util.Base64;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 /**
@@ -13,14 +15,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Users")
 public class User implements Serializable {
+
     @Id
-    private String email;    
+    private String email;
     private String name;
     private int age;
     private String bio;
     @Embedded
     private Address address;
-    private String image;
+    @Lob
+    private byte[] image;
     private String password;
 
     public User() {
@@ -38,7 +42,7 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }        
+    }
 
     public String getEmail() {
         return email;
@@ -80,11 +84,26 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
-    }    
+    }
+
+    public String getImg() {
+        if (image != null) {
+            return miniature();
+        }
+        return "img/default_user.png";
+    }
+
+    private String miniature() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("data:image/png;base64,");
+        sb.append(Base64.getEncoder().encodeToString(image));
+        return sb.toString();
+    }
+
 }

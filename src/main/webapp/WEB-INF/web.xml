@@ -64,6 +64,10 @@
         <servlet-name>FindUser</servlet-name>
         <servlet-class>br.edu.ifpb.db.myplaces.servlets.FindUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateUserInfo</servlet-name>
+        <servlet-class>br.edu.ifpb.db.myplaces.servlets.UpdateUserInfo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>FindUser</servlet-name>
         <url-pattern>/admin/findUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserInfo</servlet-name>
+        <url-pattern>/admin/updateInfo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

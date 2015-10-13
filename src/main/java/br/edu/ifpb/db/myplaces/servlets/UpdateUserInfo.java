@@ -1,21 +1,23 @@
 package br.edu.ifpb.db.myplaces.servlets;
 
-import br.edu.ifpb.db.myplaces.core.PostRepositoryOperations;
 import br.edu.ifpb.db.myplaces.core.UsersRepositoryOperations;
-import br.edu.ifpb.db.myplaces.entitys.Post;
 import br.edu.ifpb.db.myplaces.entitys.User;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author joaomarcos
  */
-public class ProfileServlet extends HttpServlet {
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 3, maxRequestSize = 1024 * 1024 * 5)
+public class UpdateUserInfo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,16 +30,32 @@ public class ProfileServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String p_email = request.getParameter("user");
-        System.out.println(p_email);
-        UsersRepositoryOperations operations = new UsersRepositoryOperations();
-        PostRepositoryOperations pro = new PostRepositoryOperations();
-        User oUser = operations.getUser(p_email);
-        System.out.println(oUser.getName());
-        List<Post> posts = pro.listAllPosts(p_email);
-        request.setAttribute("oPosts", posts);
-        request.setAttribute("oUser", oUser);
-        getServletContext().getRequestDispatcher("/admin/profile.jsp").forward(request, response);
+        User user = (User) request.getSession().getAttribute("user");
+        UsersRepositoryOperations uro = new UsersRepositoryOperations();
+        try {
+            Part part = request.getPart("image");
+            user.setImage(getBytesFromPart(part));
+
+            //validar as informações. Se validas chama o set
+            uro.updateInfo(user);
+            request.getSession().setAttribute("user", uro.getUser(user.getEmail()));
+            response.sendRedirect("editarinfo.jsp");
+        } catch (Exception ex) {
+            request.getRequestDispatcher("/admin/editarinfo.jsp").forward(request, response);
+        }
+    }
+
+    public static byte[] getBytesFromPart(Part part) throws IOException {
+        InputStream in = part.getInputStream();
+        byte[] buffer = new byte[1024];
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        int len;
+        while ((len = in.read(buffer)) != -1) {
+            out.write(buffer, 0, len);
+        }
+
+        return out.toByteArray();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

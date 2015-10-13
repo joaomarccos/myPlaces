@@ -19,7 +19,7 @@
 			<div class="row">
 				<div class="col-md-6 col-md-push-3">
 					
-					<form action="AtualizarInformacoes" method="POST" class="form-horizontal form" id="ed">
+					<form action="updateInfo" method="POST" class="form-horizontal form" id="ed" enctype="multipart/form-data">
 						
 						<fieldset>
 							<legend>Informações Pessoais </legend>
@@ -27,7 +27,7 @@
 							
 						<div class="form-group">
 							<label for="nome" class="control-label col-sm-3">
-								<img src="img/default_user.png" id="userphoto" alt="userphoto" class="img-circle">
+								<img src="${user.img}" id="userphoto" alt="userphoto" class="img-circle">
 							</label>
 							<div class="col-sm-9">
 								<input type="file" name="image">

@@ -17,6 +17,7 @@
         <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/functions.js" type="text/javascript"></script>
         <script src="js/profileOperations.js" type="text/javascript"></script>
         <title>JSP Page</title>
     </head>
@@ -40,7 +41,7 @@
                     </c:if>
                     <c:if test="${user.email != oUser.email}">
                         <script>
-                isFollowing("${oUser.email}");
+                            isFollowing("${oUser.email}");
                         </script>            
                         <button id="bt" onclick="follow('${oUser.email}')"></button>
                     </c:if>
@@ -63,7 +64,32 @@
                 </div>
             </div>
         </div>                      
-
+        <c:if test="${fn:length(oPosts) gt 0}">
+            <c:forEach var="post" items="${oPosts}">
+                <p><a href="profile?user=${post.author}">${post.username}</a> <small>${post.date}</small></p>
+                <p>${post.text}</p>
+                <img src="https://maps.googleapis.com/maps/api/staticmap?center=${post.location.lat},${post.location.lng}&zoom=13&size=300x200&markers=color:red%7C${post.location.lat},${post.location.lng}&key=AIzaSyDPSWd4ujOrb1Hhv0rDnKnW9oVG3zNfjWo">                    
+                <div id="${post.id}">
+                    <a id="likes"></a>
+                    <button Id="bt" onclick="like('${post.id}')"></button>
+                </div>
+                <script>
+                        isLiked("${post.id}");
+                </script>
+                <c:forEach var="comment" items="${post.comments}">
+                    <p>${comment.username} <small>${comment.date}</small></p>
+                    <p>${comment.description}</p>
+                    <c:if test="${(comment.author eq user.email) or (user.email eq post.id)}">
+                        <a href="deleteComment?postId=${post.id}&comment=${comment.id}">Excluir</a>
+                    </c:if>
+                </c:forEach>
+                <br>                    
+                <form action="comment?postid=${post.id}" method="post">
+                    <textarea cols="40" placeholder="comentar" name="comment"></textarea>                        
+                    <input type="submit" value="comentar">
+                </form>                    
+            </c:forEach>                                            
+        </c:if>
         <script>
             getNfollowers("${oUser.email}");
         </script>
