@@ -58,19 +58,19 @@
 						<div class="form-group">
 							<label for="cidade" class="control-label col-sm-2">Cidade</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="address" name="cidade" value="">
+									<input type="text" class="form-control" id="address" name="city" value="${user.address.city}">
 								</div>
 						</div>
 						<div class="form-group">
 							<label for="cidade" class="control-label col-sm-2">Estado</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="address" name="cidade" value="">
+									<input type="text" class="form-control" id="address" name="state" value="${user.address.state}">
 								</div>
 						</div>
 						<div class="form-group">
 							<label for="cidade" class="control-label col-sm-2">País</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="address" name="cidade" value="">
+									<input type="text" class="form-control" id="address" name="country" value="${user.address.country}">
 								</div>
 						</div>
 						

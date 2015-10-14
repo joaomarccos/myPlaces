@@ -27,15 +27,15 @@
         <div class="container header_p">
             <div class="row rowheader">
                 <div class="col-md-2 col-md-pull foto_p">
-                    <a href="#"><img src="img/default_user.png" id="userphoto_p" alt="userphoto" class="img-circle"></a>
+                    <a href="#"><img src="${oUser.img}" id="userphoto_p" alt="userphoto" class="img-circle"></a>
                 </div>
                 <div class="col-md-6 col-md-push-2 info">
                     <h3>${oUser.name}</h3>
-                    <h5>idade</h5>
-                    <h5>Cidede, estafo, país</h5>
+                    <h5>${oUser.age}</h5>
+                    <h5>${oUser.address.city}, ${oUser.address.state}, ${oUser.address.country}</h5>
                 </div>
                 <div class="col-md-4 col-md-push-2 more">       
-                    <p><b id="qtde"></b>seguidores</p>
+                    <p><b id="qtde"></b> seguidores</p>
                     <c:if test="${user.email == oUser.email}">
                         <a href="editarinfo.jsp" class="edit"><span class="glyphicon glyphicon-pencil"></span> Editar Perfil</a>
                     </c:if>
@@ -43,7 +43,7 @@
                         <script>
                             isFollowing("${oUser.email}");
                         </script>            
-                        <button id="bt" onclick="follow('${oUser.email}')"></button>
+                        <button id="bt" class="btn btn-primary pull-right" onclick="follow('${oUser.email}')"></button>
                     </c:if>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         <div class="panel-body">
                             <p class="text-justify" id="status">
                                 <img src="img/aspas1.png" class="aspas_p" alt="aspas">
-                                Status
+                                    ${oUser.bio}
                                 <img src="img/aspas2.png" class="aspas_p" alt="aspas">
                             </p>
                         </div>
