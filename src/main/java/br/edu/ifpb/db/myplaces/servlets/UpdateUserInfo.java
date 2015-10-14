@@ -46,9 +46,9 @@ public class UpdateUserInfo extends HttpServlet {
             user.setAge(idade);
             user.setBio(bio);
             user.setName(nome);
-            user.getAdress().setCity(city);
-            user.getAdress().setState(state);
-            user.getAdress().setCountry(country);
+            user.getAddress().setCity(city);
+            user.getAddress().setState(state);
+            user.getAddress().setCountry(country);
             //validar as informações. Se validas chama o set
             uro.updateInfo(user);
             request.getSession().setAttribute("user", uro.getUser(user.getEmail()));

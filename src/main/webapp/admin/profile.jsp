@@ -32,7 +32,9 @@
                 <div class="col-md-6 col-md-push-2 info">
                     <h3>${oUser.name}</h3>
                     <h5>${oUser.age}</h5>
-                    <h5>${oUser.address.city}, ${oUser.address.state}, ${oUser.address.country}</h5>
+                    <c:if test="${oUser.address != null}">
+                        <h5>${oUser.address.city} - ${oUser.address.state}, ${oUser.address.country}</h5>
+                    </c:if>
                 </div>
                 <div class="col-md-4 col-md-push-2 more">       
                     <p><b id="qtde"></b> seguidores</p>
@@ -56,7 +58,7 @@
                         <div class="panel-body">
                             <p class="text-justify" id="status">
                                 <img src="img/aspas1.png" class="aspas_p" alt="aspas">
-                                    ${oUser.bio}
+                                ${oUser.bio}
                                 <img src="img/aspas2.png" class="aspas_p" alt="aspas">
                             </p>
                         </div>
@@ -74,7 +76,7 @@
                     <button Id="bt" onclick="like('${post.id}')"></button>
                 </div>
                 <script>
-                        isLiked("${post.id}");
+                    isLiked("${post.id}");
                 </script>
                 <c:forEach var="comment" items="${post.comments}">
                     <p>${comment.username} <small>${comment.date}</small></p>

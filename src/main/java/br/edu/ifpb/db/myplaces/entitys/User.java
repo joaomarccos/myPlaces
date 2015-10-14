@@ -76,7 +76,7 @@ public class User implements Serializable {
         this.bio = bio;
     }
 
-    public Address getAdress() {
+    public Address getAddress() {
         return this.address;
     }
 
