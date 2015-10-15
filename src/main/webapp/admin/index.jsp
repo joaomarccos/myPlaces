@@ -34,6 +34,13 @@
             <br>
             <br>
         </div>
+        <div class="text-center">            
+            <c:set var="loadPosts" value="${fn:length(feed)}" />
+            <script>
+                var loadPosts = '${loadPosts}';
+            </script>
+            <button class="btn btn-info" id="updateButton" onclick="location.reload()">Atualizar</button>           
+        </div>
         <div class="row">
             <div class="col col-lg-3 col-md-3">
                 <c:forEach items="${sgusers}" var="sguser">                                    
@@ -123,13 +130,7 @@
                 </div>
             </div>
         </div>
-        <div>            
-            <c:set var="loadPosts" value="${fn:length(feed)}" />
-            <script>
-                var loadPosts = '${loadPosts}';
-            </script>
-            <button class="btn btn-info" id="updateButton" onclick="location.reload()">Atualizar</button>           
-        </div>
+        
         <script>
             getPrefer("${user.email}");
         </script>
