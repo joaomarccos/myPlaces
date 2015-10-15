@@ -9,8 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="css/map-style.css" rel="stylesheet" type="text/css"/>
-        <link href="css/theme-green.css" rel="stylesheet" type="text/css"/>
+        <link href="css/map-style.css" rel="stylesheet" type="text/css"/>        
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <title>Feed</title>
         <link rel="shortcut icon" href="../logo.ico"> 
@@ -36,7 +35,7 @@
             <br>
         </div>
         <div class="row">
-            <div class="col col-lg-4 col-md-4">
+            <div class="col col-lg-3 col-md-3">
                 <c:forEach items="${sgusers}" var="sguser">                                    
                     <div class="media">
                         <div class="media-left media-middle">
@@ -51,7 +50,7 @@
                     </div>
                 </c:forEach>                       
             </div>            
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-5 col-md-5">
                 <c:if test="${fn:length(feed) gt 0}">
                     <c:forEach var="post" items="${feed}">
                         <div class="post">

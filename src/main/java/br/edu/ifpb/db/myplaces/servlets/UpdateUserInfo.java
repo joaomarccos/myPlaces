@@ -1,6 +1,7 @@
 package br.edu.ifpb.db.myplaces.servlets;
 
 import br.edu.ifpb.db.myplaces.core.UsersRepositoryOperations;
+import br.edu.ifpb.db.myplaces.entitys.Address;
 import br.edu.ifpb.db.myplaces.entitys.User;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,28 +31,29 @@ public class UpdateUserInfo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        User u = (User) request.getSession().getAttribute("user");
         UsersRepositoryOperations uro = new UsersRepositoryOperations();
+        User user = uro.getUser(u.getEmail());
         try {
             Part part = request.getPart("image");
             user.setImage(getBytesFromPart(part));
-            
+
             String nome = request.getParameter("name");
             int idade = Integer.parseInt(request.getParameter("age"));
             String bio = request.getParameter("bio");
             String city = request.getParameter("city");
             String state = request.getParameter("state");
             String country = request.getParameter("country");
-            
+
             user.setAge(idade);
             user.setBio(bio);
             user.setName(nome);
-            user.getAddress().setCity(city);
-            user.getAddress().setState(state);
-            user.getAddress().setCountry(country);
-            //validar as informações. Se validas chama o set
+
+            Address a = new Address(country, state, city);
+            user.setAddress(a);
+            
             uro.updateInfo(user);
-            request.getSession().setAttribute("user", uro.getUser(user.getEmail()));
+            request.getSession().setAttribute("user", user);
             response.sendRedirect("editarinfo.jsp");
         } catch (Exception ex) {
             request.getRequestDispatcher("/admin/editarinfo.jsp").forward(request, response);

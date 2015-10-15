@@ -12,8 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil</title>
         <link rel="shortcut icon" href="../logo.ico">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/theme-green.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">        
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,7 +56,7 @@
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <p class="text-justify" id="status">
+                            <p class="text-capitalize" id="status" style="width: 100%">
                                 <img src="img/aspas1.png" class="aspas_p" alt="aspas">
                                 ${oUser.bio}
                                 <img src="img/aspas2.png" class="aspas_p" alt="aspas">
@@ -68,7 +67,7 @@
             </div>
         </div>                      
         <div class="row">
-            <div class="col col-lg-4 col-md-4">
+            <div class="col col-lg-3 col-md-3">
                 <c:forEach items="${sgusers}" var="sguser">                                    
                     <div class="media">
                         <div class="media-left media-middle">
@@ -83,7 +82,7 @@
                     </div>
                 </c:forEach>                       
             </div>            
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-5 col-md-5">
                 <c:if test="${fn:length(oPosts) gt 0}">
                     <c:forEach var="post" items="${oPosts}">
                         <div class="post">
@@ -140,6 +139,7 @@
         </div>       
             
         <script>
+            getPrefer("${user.email}");
             getNfollowers("${oUser.email}");
         </script>
     </body>
