@@ -46,7 +46,8 @@ public class PostDao {
             public void apply(Document document) {
                 posts.add(Post.fromDocument(document));
             }
-        });        
+        });
+        
         mongoUtil.closeConnection();
         return posts;
     }

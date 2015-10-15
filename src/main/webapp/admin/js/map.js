@@ -1,5 +1,7 @@
+var map;
+
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
         center: {lat: -6.7518873, lng: -38.23140219999999},
         zoom: 13,
         disableDefaultUI: true,
@@ -67,6 +69,11 @@ function initMap() {
 
     autocomplete.setTypes([]);
 
+
 }
+
+$('#mapmodal').on('shown.bs.modal', function () {
+    google.maps.event.trigger(map, "resize");
+});
 
 google.maps.event.addDomListener(window, 'load', initMap);

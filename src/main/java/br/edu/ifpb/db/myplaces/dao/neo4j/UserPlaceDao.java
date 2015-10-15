@@ -77,7 +77,7 @@ public class UserPlaceDao {
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
             sb.append("MATCH (").append("{email:\"").append(email);
-            sb.append("\"})-[:FOLLOW]->(u)-[r:VISITED]->(n) RETURN n ORDER BY r.time LIMIT 5");
+            sb.append("\"})-[:FOLLOW]->(u)-[r:VISITED]->(n) RETURN DISTINCT n LIMIT 5");
             ResultSet result = stat.executeQuery(sb.toString());
             Gson gson = new Gson();
             while (result.next()) {

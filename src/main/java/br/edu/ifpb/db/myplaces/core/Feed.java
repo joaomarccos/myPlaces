@@ -39,7 +39,7 @@ public class Feed {
         public int compareTo(PostWithPriority o) {
             LocalDate thisDate = LocalDateTime.ofInstant(post.getDate().toInstant(), ZoneId.systemDefault()).toLocalDate();
             LocalDate oDate = LocalDateTime.ofInstant(o.post.getDate().toInstant(), ZoneId.systemDefault()).toLocalDate();
-            int compare = thisDate.compareTo(oDate);
+            int compare = oDate.compareTo(thisDate);
             if (compare == 0) {
                 return priority - o.priority;
             }

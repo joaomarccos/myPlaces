@@ -54,11 +54,12 @@ public class MongoDBConnectionUtil {
         if(!haveCollection){
             db.createCollection("Post");
         }
+        closeConnection();
     }
 
     public void closeConnection() {
         this.db = null;
-        this.mongoClient.close();
+        this.mongoClient.close();        
     }
 
     private String getHost() {

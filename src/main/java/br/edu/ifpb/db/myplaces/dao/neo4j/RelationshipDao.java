@@ -74,8 +74,8 @@ public class RelationshipDao {
         List<String> listOfEmails = new ArrayList<>();
         try (Statement stat = connectionUtil.getConnection().createStatement()) {
             StringBuilder sb = new StringBuilder();
-            sb.append("MATCH (").append("{email:\"").append(email);
-            sb.append("\"})-[:FOLLOW]->()-[:FOLLOW]->(o) return o.email LIMIT 10");
+            sb.append("MATCH (").append("u {email:\"").append(email);
+            sb.append("\"})-[:FOLLOW]->()-[:FOLLOW]->(o) WHERE o.email <> u.email AND NOT (u)-[:FOLLOW]->(o) RETURN o.email LIMIT 10");
             ResultSet result = stat.executeQuery(sb.toString());
             while (result.next()) {
                 listOfEmails.add(result.getString("o.email"));

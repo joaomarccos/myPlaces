@@ -1,0 +1,143 @@
+body{
+	background-color: rgba(169,169,169,0.5) !important;
+	font-family:'Slabo 27px', serif !important;
+}
+
+.rodapepub{
+	padding-bottom:40px !important;
+}
+
+.publicar{
+	margin-top:0px !important;
+}
+
+.content-post{
+	margin-top: 8px;
+}
+
+/*NavBar Begin*/
+.navbar{
+	background-color: #000000 !important;
+	padding-bottom: 8px;
+}
+.logo{
+	height: 35px;
+}
+
+.names{
+	color: white;
+	margin-left: 10px;
+}
+
+#userphotonav{
+	height:35px;
+	width:35px;
+}
+.icone{
+	color: white;
+	font-size:25px;
+}
+/*NavBar End*/
+
+/*Container Publicacao Begin*/
+.cabecalho{
+	height: 75px;
+	background-color:#FF9933 !important;
+	color:white !important;
+}
+
+.nomeusuariopub{
+	margin:5px;
+	float:left;
+}
+
+.textopub{
+	margin:10px;
+}
+
+.imagempub{
+	height:370px;
+	margin-bottom:30px;	
+}
+
+.fotousuariopub{
+	width:60px;
+	height:60px;
+	clear: left;
+	float:left;
+}
+/*Container Publicacao End*/
+
+/*Perfil Begin*/
+.header_p{
+	background-color: #000000;
+	width: 67% !important;
+	margin-bottom:20px !important;
+	padding:5px;
+	font-size:20px;
+}
+
+.content_p{
+    width: 75% !important;
+    margin-bottom:20px !important;
+    padding:5px;
+    font-size:20px;
+}
+.rowheader{
+	color:white !important;
+}
+
+h6{
+	font-weight: bold !important;
+}
+
+.aspas_p{
+	width:20px;
+	
+}
+#status{
+    width:20px;
+    text-align: center;
+}
+
+#userphoto_p{
+	width:200px;
+	height:200px;
+}
+
+#qtde{    
+    color: white;
+}
+
+.edit{
+    color: white;
+    font-size:15px;    
+}
+.more{
+    padding-top: 15%;
+    padding-left: 5%;
+}
+/*Perfil End*/
+
+/*Editar Info Begin*/
+#userphoto{
+	height:100px;
+	width:100px;
+}
+
+.container{
+	margin: 0 auto;
+	padding-right:50px;
+	padding-left: 50px;
+	
+}
+
+form#ed{
+	margin-top:40px;
+	margin-bottom:40px;
+	padding: 20px;
+	padding-bottom:50px;
+	border:1px solid #DCDCDC;
+	background-color: white;
+}
+/*Editar Info End*/

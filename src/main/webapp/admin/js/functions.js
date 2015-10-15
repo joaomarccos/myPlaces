@@ -26,3 +26,23 @@ function like(postid) {
     });
 
 }
+
+function find(q) {
+    $(".result").show();
+    $.getJSON('findUser?q='+q.value, function (data) {
+        listUsers(data);
+    });
+}
+
+function listUsers(json) {    
+    var html = "<ul>";
+    for (var i = 0; i < json.length; i++) {
+        html+="<li><a href='profile?user="+json[i].email+"'>"+json[i].name+"</a></li>";
+    }
+    if(json.length === 0){
+        $(".result").hide();
+        html+="<li>Nenhum resultado</li>";
+    }
+    html+="</ul>";
+    $("#resultado").html(html);
+}
